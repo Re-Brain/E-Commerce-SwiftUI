@@ -10,8 +10,8 @@ import SwiftUI
 import UIKit
 
 struct Main: View {
-    @ObservedObject var database: Database
-    @EnvironmentObject var tabSelectionViewModel: TabSelectionViewModel
+    @ObservedObject var database: Database // Declare database class as stateObject
+    @EnvironmentObject var tabSelectionViewModel: TabSelectionViewModel // For tableview page selection
     
     var body: some View {
         
@@ -20,6 +20,7 @@ struct Main: View {
             GeometryReader
             { geometry in
                 
+                // Header Logo
                 VStack
                 {
                     VStack
@@ -38,11 +39,13 @@ struct Main: View {
                         }
                     }
                     .background(Color("PrimaryColor"))
-                
+                    
+                    // Display all items in each different section
                     VStack
                     {
                         ScrollView(.vertical, showsIndicators: false)
                         {
+                            // Snacks Section
                             VStack()
                             {
                                 SubHeaderText(value: "Snacks", color: Color("SecondaryColor"))
@@ -50,6 +53,7 @@ struct Main: View {
                             }
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 25, trailing: 0))
                             
+                            // Frozen Foods Section
                             VStack()
                             {
                                 SubHeaderText(value: "Frozen Foods", color: Color("SecondaryColor"))
@@ -57,6 +61,7 @@ struct Main: View {
                             }
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 25, trailing: 0))
                             
+                            // Canned & Jarred Section
                             VStack()
                             {
                                 SubHeaderText(value: "Canned & Jarred", color: Color("SecondaryColor"))
@@ -64,6 +69,7 @@ struct Main: View {
                             }
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 25, trailing: 0))
                             
+                            // Baverage Section
                             VStack()
                             {
                                 SubHeaderText(value: "Baverage", color: Color("SecondaryColor"))
@@ -71,6 +77,8 @@ struct Main: View {
                             }
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 25, trailing: 0))
                             
+                            
+                            // Household Section
                             VStack()
                             {
                                 SubHeaderText(value: "Household", color: Color("SecondaryColor"))
@@ -78,6 +86,7 @@ struct Main: View {
                             }
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 25, trailing: 0))
                             
+                            // Personal Care Section
                             VStack()
                             {
                                 SubHeaderText(value: "Personal Care", color: Color("SecondaryColor"))
@@ -95,6 +104,7 @@ struct Main: View {
     }
 }
 
+// Display all the headers text of page
 struct HeaderText: View {
     let value : String
     
@@ -104,6 +114,7 @@ struct HeaderText: View {
     }
 }
 
+// Display all the subheaders which is the header of each categories
 struct SubHeaderText: View {
     let value : String
     let color : Color
@@ -122,6 +133,7 @@ struct SubHeaderText: View {
     }
 }
 
+// Display all the item of each categories
 struct ItemList : View {
     @Binding var itemList: [String]
     @ObservedObject var database: Database

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct Item: View {
-    let value : String
-    @State private var counter = 1
-    @ObservedObject var database: Database
-    @Environment(\.presentationMode) var presentationMode
+    let value : String // The item that this section will show
+    @State private var counter = 1 // Amount of item that user want to put in
+    @ObservedObject var database: Database // Declare database class as stateObject
+    @Environment(\.presentationMode) var presentationMode // This page can be dismiss to return to the previous page without using the table view
    
     var body: some View {
         
@@ -19,12 +19,14 @@ struct Item: View {
             
             VStack(alignment: .center)
             {
+                // Display image of the item
                 Image(value) // Replace "yourImageName" with the name of your image asset
                     .resizable()
                     .frame(width: geometry.size.width / 1.5 , height: geometry.size.height / 2 ) // Set the width of the image to the width of the screen
                     .clipped() // Clip the image to fit within the frame
                     .padding()
                 
+                // Display the detail of the item
                 VStack
                 {
                     HStack
@@ -48,6 +50,7 @@ struct Item: View {
                 }
                 .padding()
                 
+                // Adjust the amount of item that the user wants to put in the cart
                 HStack
                 {
                     Button
@@ -76,6 +79,7 @@ struct Item: View {
                 }
                 .padding()
                 
+                // Add the item to the cart
                 Button
                 {
                     database.addToBasket(item: value, amount: counter)

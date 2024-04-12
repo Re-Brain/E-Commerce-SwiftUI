@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct User : View {
-    @ObservedObject var database: Database
-    @EnvironmentObject var tabSelectionViewModel: TabSelectionViewModel
+    @ObservedObject var database: Database // Declare database class as stateObject
+    @EnvironmentObject var tabSelectionViewModel: TabSelectionViewModel // For tableview page selection
     
     var body: some View {
         
@@ -18,6 +18,7 @@ struct User : View {
     
             VStack
             {
+                // Header Section
                 HStack
                 {
                     Spacer()
@@ -31,6 +32,7 @@ struct User : View {
                 .padding()
                 .background(Color("PrimaryColor"))
                 
+                // Display all the location in the database
                 GeometryReader { geometry in
                     
                     VStack
@@ -117,8 +119,10 @@ struct User : View {
             
                                     }
                                     
+                                    
                                     HStack
                                     {
+                                        // Edit the item
                                         HStack
                                         {
                                             Spacer()
@@ -134,6 +138,7 @@ struct User : View {
                                         .background(Color.green)
                                         .cornerRadius(10)
                                         
+                                        // Delete item
                                         HStack
                                         {
                                             Spacer()
@@ -168,7 +173,7 @@ struct User : View {
                         .cornerRadius(10)
                         .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                        
-                        
+                        // Add new user
                         HStack
                         {
                             Spacer()

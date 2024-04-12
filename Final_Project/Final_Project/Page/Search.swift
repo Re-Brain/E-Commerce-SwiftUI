@@ -9,8 +9,8 @@ import SwiftUI
 
 struct Search: View {
     
-    @ObservedObject var database: Database
-    @State private var searchText = ""
+    @ObservedObject var database: Database // Declare database class as stateObject
+    @State private var searchText = "" // The text that user input for searching
     
     var body: some View {
         VStack

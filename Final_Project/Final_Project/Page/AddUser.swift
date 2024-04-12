@@ -9,8 +9,10 @@ import SwiftUI
 import Combine
 
 struct AddUser: View {
-    @ObservedObject var database: Database
-    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var database: Database // Declare database class as stateObject
+    @Environment(\.presentationMode) var presentationMode // This page can be dismiss to return to the previous page without using the table view
+    
+    // Store the each inforamtion that user put in 
     @State private var name : String = ""
     @State private var phone : String = ""
     @State private var address : String = ""
@@ -21,10 +23,12 @@ struct AddUser: View {
         {
             VStack
             {
+               // Header
                Text("Add User")
                     .padding()
                     .font(.custom("Roboto-bold", size: 35))
                 
+                // Add user form
                 Form
                 {
                     Section(header : Text("Name")
@@ -64,14 +68,14 @@ struct AddUser: View {
                             }
                     }
                    
-                    
+                    // Handle when the user click submit all the information
                     HStack
                     {
                         Spacer()
                         
                         Button
                         {
-                            database.addUser(name: name, address: address, phone: phone)
+                            database.addUser(name: name, address: address, phone: phone) // Add new user to the database
                             presentationMode.wrappedValue.dismiss()
                         }
                         label:

@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct Cart: View {
-    @ObservedObject var database: Database
-    @State private var selectedTab: Int = 1
-    @EnvironmentObject var tabSelectionViewModel: TabSelectionViewModel
+    @ObservedObject var database: Database // Declare database class as stateObject
+    @State private var selectedTab: Int = 1 // For switching between pages if user click on buttons or requirement to purchase items is no fullfill
+    @EnvironmentObject var tabSelectionViewModel: TabSelectionViewModel // For tableview page selection
     
     // Alert properties
     @State private var showAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    
+    // For calculating the total price
     @State private var total = 0
     
     var body: some View {
@@ -23,6 +25,7 @@ struct Cart: View {
             
             VStack{
                 
+                // Header Section
                 HStack
                 {
                     Spacer()
@@ -36,6 +39,7 @@ struct Cart: View {
                 .padding()
                 .background(Color("PrimaryColor"))
                 
+                // List all the item lists section
                 ScrollView(.vertical, showsIndicators : false)
                 {
                     VStack
@@ -46,7 +50,7 @@ struct Cart: View {
                         VStack
                         {
                             
-                                
+                            // For each loop to display all the selected items
                             ForEach(database.cartList.sorted(by: { $0.key < $1.key }).filter { $0.value > 0 }, id: \.key) { key, value in
                                 
                                 HStack
@@ -66,8 +70,10 @@ struct Cart: View {
                                     
                                     Spacer()
                                     
+                                    // Increase or Decrease(Delete) item that you select in the cart
                                     HStack
                                     {
+                                        // Decrease
                                         Button
                                         {
                                             database.cartList[key] = value - 1
@@ -82,6 +88,7 @@ struct Cart: View {
                                         
                                         Text(String(value))
                                         
+                                        // Increase
                                         Button
                                         {
                                             database.cartList[key] = value + 1
@@ -108,11 +115,13 @@ struct Cart: View {
                         .cornerRadius(5)
                         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                         
+                        // Calcualte the total price from all the item user selected in the cart
                         let total = database.cartList.reduce(0) { (accumulatedResult, element) in
                             // Combine the current accumulated result with the element (key-value pair)
                             return accumulatedResult + element.value * 30
                         }
                         
+                        // Display the total price
                         HStack
                         {
                             Text("Total: $\(total)")
@@ -122,12 +131,14 @@ struct Cart: View {
                         }
                         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                         
-                        
+                        // Header of the location section
                         SubHeaderText(value: "Location", color: Color("SecondaryColor"))
                             .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                        
+                       
+                        // Container
                         VStack
                         {
+                            // Handle the case where there is no location for items to send
                             if (database.locations.isEmpty)
                             {
                                 Button
@@ -142,7 +153,7 @@ struct Cart: View {
                                     .foregroundColor(Color.black)
                             }
                             }
-                            else
+                            else // if there is location for item to send
                             {
                                 VStack(alignment: .leading)
                                 {
@@ -171,6 +182,7 @@ struct Cart: View {
                         .cornerRadius(5)
                         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                         
+                        // This button take use to the main page to select more item
                         Button{
                             tabSelectionViewModel.selectedTab = 0
                         }
@@ -182,7 +194,7 @@ struct Cart: View {
                             .foregroundColor(Color.black)
                             .cornerRadius(5)
                     }
-                        
+                        // Place order for the item to be send
                         Button
                         {
                             if (database.locations.isEmpty)

@@ -9,8 +9,8 @@ import SwiftUI
 import Combine
 
 struct EditPage: View {
-    @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var database: Database
+    @Environment(\.presentationMode) var presentationMode // This page can be dismiss to return to the previous page without using the table view
+    @ObservedObject var database: Database // Declare database class as stateObject
     let id : Int
    
     var body: some View {
@@ -18,10 +18,12 @@ struct EditPage: View {
         {
             VStack
             {
+                // Header Section
                 Text("Edit User")
                     .padding()
                     .font(.custom("Roboto-bold", size: 35))
                 
+                // Preloaded input form 
                 Form
                 {
                     Section(header : Text("Name")

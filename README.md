@@ -41,3 +41,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;The edit page show user a pre-filled form with the data of the section that the user selected. The user will be able to edit all the data in that form
 
 ![Edit Page Display](images/editPage.png)
+
+## Video Demonstration
+
+Video : https://www.youtube.com/watch?v=hQZAO2qkP20
